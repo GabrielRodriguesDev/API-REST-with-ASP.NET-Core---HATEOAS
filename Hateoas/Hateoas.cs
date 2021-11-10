@@ -29,8 +29,13 @@ namespace API_REST_with_ASP.NET_Core_HATEOAS.Hateoas
             this.actions.Add(new Link(this.protocol + this.url, rel, method));
         }
 
-        public Link[] GetActions() {
-            return this.actions.ToArray();
+        public Link[] GetActions(string sufix) {
+            Link[] templinks = actions.ToArray();
+            foreach (var link in templinks)
+            {
+                link.href = link.href +"/"+sufix; 
+            }
+            return templinks;
         }
     }
 

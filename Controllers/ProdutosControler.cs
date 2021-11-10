@@ -44,7 +44,7 @@ namespace API_REST_with_ASP.NET_Core_HATEOAS.Controllers
                 Response.StatusCode  = 200;
                 ProdutoContainer produtoContainer = new ProdutoContainer();
                 produtoContainer.produto = produto;
-                produtoContainer.links = this._hateoas.GetActions();
+                produtoContainer.links = this._hateoas.GetActions(produto.Nome);
                 return new JsonResult(new {produtoContainer.produto, produtoContainer.links});
             }
             catch (System.Exception)
