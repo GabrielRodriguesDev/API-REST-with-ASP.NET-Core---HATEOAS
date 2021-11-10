@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using API_REST_with_ASP.NET_Core_HATEOAS.Data;
 using API_REST_with_ASP.NET_Core_HATEOAS.Models;
+using API_REST_with_ASP.NET_Core_HATEOAS.Hateoas;
+using Newtonsoft.Json;
 
 namespace API_REST_with_ASP.NET_Core_HATEOAS.Controllers
 {
@@ -14,16 +16,22 @@ namespace API_REST_with_ASP.NET_Core_HATEOAS.Controllers
     {
 
         private ApplicationDbContext _database;
+        private Hateoas.Hateoas _hateoas;
         public ProdutosControler(ApplicationDbContext database)
         {
             this._database = database;
+            this._hateoas = new Hateoas.Hateoas("localhost:5001/ProdutosControler");
+            this._hateoas.AddAction("DELETE_PRODUCT", "DELETE");
+            this._hateoas.AddAction("EDIT_PRODUCT", "PATCH"); 
+            this._hateoas.AddAction("GET_PRODUCT", "GET");
+            this._hateoas.AddAction("CREATE_PRODUCT", "CREATE");
         }
 
         [HttpGet]
         public  IActionResult getProdutos(){
             var produtos = this._database.Produtos.ToList(); // Recuperando do BD a lista todos os registros da tabela (Entidade) Produtos
             Response.StatusCode  = 200;
-
+            
             return new JsonResult(produtos); // Retornando a lista com todos os produtos.
         }
 
@@ -34,7 +42,10 @@ namespace API_REST_with_ASP.NET_Core_HATEOAS.Controllers
             {
                 var produto = this._database.Produtos.First(produto => produto.Id == id);
                 Response.StatusCode  = 200;
-                return new JsonResult(produto);
+                ProdutoContainer produtoContainer = new ProdutoContainer();
+                produtoContainer.produto = produto;
+                produtoContainer.links = this._hateoas.GetActions();
+                return new JsonResult(new {produtoContainer.produto, produtoContainer.links});
             }
             catch (System.Exception)
             {
@@ -121,5 +132,12 @@ namespace API_REST_with_ASP.NET_Core_HATEOAS.Controllers
                 }
             }
         }
+
+        
+        public class ProdutoContainer{
+            public Produto produto ;
+            public Link[] links;
+        }
+
     }
 }

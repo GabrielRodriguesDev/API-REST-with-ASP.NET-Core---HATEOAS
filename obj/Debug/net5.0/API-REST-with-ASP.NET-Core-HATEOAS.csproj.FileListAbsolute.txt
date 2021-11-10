@@ -35,3 +35,4 @@ D:\Technology\Sistemas\Gabriel\ASPNET\SchoolOfNet\API-REST-with-ASP.NET-Core-HAT
 D:\Technology\Sistemas\Gabriel\ASPNET\SchoolOfNet\API-REST-with-ASP.NET-Core-HATEOAS\obj\Debug\net5.0\ref\API-REST-with-ASP.NET-Core-HATEOAS.dll
 D:\Technology\Sistemas\Gabriel\ASPNET\SchoolOfNet\API-REST-with-ASP.NET-Core-HATEOAS\obj\Debug\net5.0\API-REST-with-ASP.NET-Core-HATEOAS.pdb
 D:\Technology\Sistemas\Gabriel\ASPNET\SchoolOfNet\API-REST-with-ASP.NET-Core-HATEOAS\obj\Debug\net5.0\API-REST-with-ASP.NET-Core-HATEOAS.genruntimeconfig.cache
+D:\Technology\Sistemas\Gabriel\ASPNET\SchoolOfNet\API-REST-with-ASP.NET-Core-HATEOAS\bin\Debug\net5.0\Newtonsoft.Json.dll
