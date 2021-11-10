@@ -31,8 +31,14 @@ namespace API_REST_with_ASP.NET_Core_HATEOAS.Controllers
         public  IActionResult getProdutos(){
             var produtos = this._database.Produtos.ToList(); // Recuperando do BD a lista todos os registros da tabela (Entidade) Produtos
             Response.StatusCode  = 200;
-            
-            return new JsonResult(produtos); // Retornando a lista com todos os produtos.
+            List<ProdutoContainer> produtosContainer = new List<ProdutoContainer>();
+            foreach (var produto in produtos)
+            {
+                ProdutoContainer produtoContainer = new ProdutoContainer();
+                produtoContainer.produto = produto;
+                produtoContainer.links = this._hateoas.GetActions(produto.Nome);
+            }
+            return Ok(produtosContainer); // Retornando a lista com todos os produtos.
         }
 
 

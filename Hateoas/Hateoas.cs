@@ -30,7 +30,12 @@ namespace API_REST_with_ASP.NET_Core_HATEOAS.Hateoas
         }
 
         public Link[] GetActions(string sufix) {
-            Link[] templinks = actions.ToArray();
+            Link[] templinks = new Link[actions.Count];
+
+            for(int i =0; i < templinks.Length;i++){
+                templinks[i] = new Link(actions[i].href, actions[i].rel, actions[i].method);
+            }
+
             foreach (var link in templinks)
             {
                 link.href = link.href +"/"+sufix; 
